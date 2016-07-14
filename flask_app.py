@@ -1,5 +1,5 @@
 
-from flask import Flask, request, url_for, render_template
+from flask import Flask, request, url_for, render_template, Markup
 import random
 from whenwillibeadad import todays_prob, cumulative_graph
 
@@ -18,7 +18,7 @@ def index():
         title="#when-will-i-be-a-dad",
         username="Alex",
         probability="%.1f%%" % y,
-        graph=graph)
+        graph=Markup(graph))
 
 @app.route('/greet', methods=['POST'])
 def greet():

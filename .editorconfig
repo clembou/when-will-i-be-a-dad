@@ -1,7 +1,7 @@
 # Indentation override for all JS under lib directory
 [**.js]
 indent_style = space
-indent_size = 
+indent_size = 2
 
 [**.jsx]
 indent_style = space

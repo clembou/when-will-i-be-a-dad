@@ -12,14 +12,13 @@ export default (props) => {
     <div className="container">
       <PageHeader>#when-will-{props.params.futureDad}-be-a-dad</PageHeader>
       <h1>Hello, {props.params.futureDad}!</h1>
-      <h3>There is a <strong>{getTodaysProbabilityForDueDate(dueDate) } %</strong> chance you will be a dad today!</h3>
+      <h3>There is a <strong>{getTodaysProbabilityForDueDate(dueDate)} %</strong> chance you will be a dad today!</h3>
       <Graph
         seriesTitle="When will I be a dad?"
-        labels={getLabelsForDueDate(dueDate) }
+        labels={getLabelsForDueDate(dueDate)}
         data={data}
       />
     </div>
   );
-}
-
+};
 

@@ -4,10 +4,6 @@ import { Line as LineChart } from 'react-chartjs';
 
 class Graph extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   getDataset() {
     return {
       labels: this.props.labels,

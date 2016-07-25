@@ -7,7 +7,8 @@ export default (props) => {
   if (!props.params.dueDate || !props.params.futureDad) {
     return null;
   }
-  const dueDate = new Date(props.params.dueDate);
+  let dueDate = new Date(props.params.dueDate);
+  dueDate = new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate());
   return (
     <div className="container">
       <PageHeader>#when-will-{props.params.futureDad}-be-a-dad</PageHeader>

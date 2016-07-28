@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
 import DateTimeField from 'react-bootstrap-datetimepicker';
 import { hashHistory } from 'react-router';
-import './bootstrap-datetimepicker.min.css';
+import 'react-bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css';
 
 export class Form extends React.Component {
   constructor(props, context) {

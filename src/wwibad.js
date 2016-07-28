@@ -1,5 +1,7 @@
 import { probabilities } from './probabilities';
 
+export const data = probabilities.map(point => point.prob * 100);
+
 const addDays = (date, days) => {
   const result = new Date(date);
   result.setDate(result.getDate() + days);
@@ -27,4 +29,13 @@ export const getTodaysProbabilityForDueDate = (dueDate) => {
   return 0;
 };
 
-export const data = probabilities.map(point => point.prob * 100);
+export const getTodaysConditionalProbabilityForDueDate = (dueDate) => {
+  const pastProbability = probabilities
+    .filter(pt => pt.relativeDay < (today - dueDate) / 3600 / 24 / 1000)
+    .map(p => p.prob)
+    .reduce((a, b) => a + b);
+
+  const todaysProbability = getTodaysProbabilityForDueDate(dueDate).prob;
+
+  return todaysProbability / (1.0 - pastProbability);
+};

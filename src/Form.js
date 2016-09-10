@@ -44,7 +44,7 @@ export class Form extends React.Component {
             value={this.state.value}
             placeholder="Enter your name"
             onChange={this.handleNameChange}
-            />
+          />
 
           <DateTimeField
             dateTime={dueDate}
@@ -54,7 +54,7 @@ export class Form extends React.Component {
             showToday="true"
             inputFormat={inputFormat}
             onChange={this.handleDateChange}
-            />;
+          />;
         </FormGroup>
         <Button type="submit" onClick={this.handleSubmit}>
           Submit

@@ -6,7 +6,7 @@ export const data = probabilities.map(point => point.prob * 100);
 export let cumulativeData = [];
 data.reduce((a, b, i) => { return cumulativeData[i] = a + b; },0);
 
-const today = moment().startOf('day');
+export const today = moment().startOf('day');
 
 export const getLabelsForDueDate = (dueDate) => probabilities.map(point => dueDate
   .clone()
@@ -28,9 +28,9 @@ export const getTodaysConditionalProbabilityForDueDate = (dueDate) => {
   const pastProbability = probabilities
     .filter(pt => pt.relativeDay < today.diff(dueDate, 'days'))
     .map(p => p.prob)
-    .reduce((a, b) => a + b);
+    .reduce((a, b) => a + b, 0);
 
-  const todaysProbability = getTodaysProbabilityForDueDate(today);
+  const todaysProbability = getTodaysProbabilityForDueDate(dueDate);
 
   return todaysProbability / (1.0 - pastProbability);
 };

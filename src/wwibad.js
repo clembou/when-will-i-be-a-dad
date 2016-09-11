@@ -1,26 +1,21 @@
+import moment from 'moment';
 import { probabilities } from './probabilities';
 
 export const data = probabilities.map(point => point.prob * 100);
 
-const addDays = (date, days) => {
-  const result = new Date(date);
-  result.setDate(result.getDate() + days);
-  return result;
-};
+export let cumulativeData = [];
+data.reduce((a, b, i) => { return cumulativeData[i] = a + b; },0);
 
-const now = new Date();
-const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+const today = moment().startOf('day');
 
-export const getLabelsForDueDate = (dueDate) => probabilities.map(point => addDays(
-  dueDate,
-  point.relativeDay).toLocaleDateString('en-GB', {
-    weekday: 'long', year: 'numeric', month: 'short',
-    day: 'numeric',
-  })
+export const getLabelsForDueDate = (dueDate) => probabilities.map(point => dueDate
+  .clone()
+  .add(point.relativeDay, 'days')
+  .format('DD MMM')
 );
 
 export const getTodaysProbabilityForDueDate = (dueDate) => {
-  const todaysData = probabilities.find(pt => pt.relativeDay === (today - dueDate) / 3600 / 24 / 1000);
+  const todaysData = probabilities.find(pt => pt.relativeDay === today.diff(dueDate, 'days'));
 
   if (todaysData && todaysData.prob) {
     return todaysData.prob * 100;
@@ -31,11 +26,11 @@ export const getTodaysProbabilityForDueDate = (dueDate) => {
 
 export const getTodaysConditionalProbabilityForDueDate = (dueDate) => {
   const pastProbability = probabilities
-    .filter(pt => pt.relativeDay < (today - dueDate) / 3600 / 24 / 1000)
+    .filter(pt => pt.relativeDay < today.diff(dueDate, 'days'))
     .map(p => p.prob)
     .reduce((a, b) => a + b);
 
-  const todaysProbability = getTodaysProbabilityForDueDate(dueDate).prob;
+  const todaysProbability = getTodaysProbabilityForDueDate(today);
 
   return todaysProbability / (1.0 - pastProbability);
 };

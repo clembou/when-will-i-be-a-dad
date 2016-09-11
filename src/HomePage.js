@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PageHeader, Jumbotron } from 'react-bootstrap';
+import { PageHeader } from 'react-bootstrap';
 import { EntryForm } from './EntryForm';
 
 export default () => (

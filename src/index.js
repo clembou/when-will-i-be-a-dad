@@ -5,6 +5,7 @@ import HomePage from './HomePage';
 import { Router, Route, hashHistory } from 'react-router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-datetime/css/react-datetime.css';
+import 'font-awesome/css/font-awesome.min.css';
 
 ReactDOM.render((
   <Router history={hashHistory}>

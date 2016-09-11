@@ -1,8 +1,13 @@
 import * as React from 'react';
 import moment from 'moment';
-import { PageHeader } from 'react-bootstrap';
+import { PageHeader, Button } from 'react-bootstrap';
 import Graph from './Graph';
 import { data, cumulativeData, getTodaysConditionalProbabilityForDueDate, getLabelsForDueDate } from './wwibad';
+
+const makeTweetLink = (text, hashtags) => {
+  return 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) +
+  '&hashtags=' + encodeURIComponent(hashtags) + '&url=' + encodeURIComponent(window.location.href);
+}
 
 export default (props) => {
   if (!props.params.dueDate || !props.params.futureDad) {
@@ -10,12 +15,16 @@ export default (props) => {
   }
 
   const dueDate = moment(props.params.dueDate).startOf('day');
-
+  const todaysProbability = getTodaysConditionalProbabilityForDueDate(dueDate);
   return (
     <div className="container">
       <PageHeader>#when-will-{props.params.futureDad}-be-a-dad</PageHeader>
       <h1>Hello, {props.params.futureDad}!</h1>
       <h3>There is a <strong>{getTodaysConditionalProbabilityForDueDate(dueDate).toFixed(1)} %</strong> chance you will be a dad today!</h3>
+      <Button href={makeTweetLink(`I have ${todaysProbability.toFixed(1)} chances of becoming a dad today!`, "when-will-i-be-a-dad")}>
+        <i className="fa fa-twitter" aria-hidden="true"></i> Tweet it!
+      </Button>
+      <br />
       <Graph
         seriesTitle="Probability of being a dad"
         labels={getLabelsForDueDate(dueDate)}
